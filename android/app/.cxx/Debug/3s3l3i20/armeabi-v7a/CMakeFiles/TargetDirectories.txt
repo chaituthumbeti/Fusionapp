@@ -1,0 +1,2 @@
+C:/Users/chait/Desktop/New folder/se/ap/fusionapp/android/app/.cxx/Debug/3s3l3i20/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/chait/Desktop/New folder/se/ap/fusionapp/android/app/.cxx/Debug/3s3l3i20/armeabi-v7a/CMakeFiles/rebuild_cache.dir
