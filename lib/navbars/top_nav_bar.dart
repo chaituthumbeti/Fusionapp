@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:hugeicons/hugeicons.dart';
 class TopNavBar extends StatefulWidget implements PreferredSizeWidget {
   final int selectedIndex;
   final VoidCallback onMenuPressed;
@@ -115,7 +115,7 @@ class _TopNavBarState extends State<TopNavBar> {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                   ),
                   onPressed: widget.onMenuPressed,
-                  icon: const Icon(Icons.menu, size: 15, color: Colors.white),
+                  icon: const Icon(HugeIcons.strokeRoundedMenu01, size: 15, color: Colors.white),
                   label: const Text(
                     'Menu',
                     style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold),

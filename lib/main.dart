@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'login/login_screen.dart';
 
+import 'package:provider/provider.dart';
+import 'pages/widgets/notification_provider.dart'; 
+
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

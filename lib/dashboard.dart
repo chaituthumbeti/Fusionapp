@@ -99,7 +99,7 @@ class _DashboardState extends State<Dashboard> {
   Widget _buildBody() {
     return [
       const HomePage(),
-      const ModulePage(),
+      ModulePage(),
       const ProfilePage(),
     ][_selectedIndex];
   }
