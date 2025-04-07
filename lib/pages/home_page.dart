@@ -6,7 +6,22 @@ import 'package:hugeicons/hugeicons.dart';
 import 'widgets/notification_provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final String role;
+  const HomePage({super.key, required this.role});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      key: ValueKey(role),
+      create: (_) => NotificationProvider(role:role),
+      child: _HomePageContent(role:role),
+    );
+  }
+}
+
+class _HomePageContent extends StatelessWidget {
+  final String role;
+  const _HomePageContent({required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +72,10 @@ class HomePage extends StatelessWidget {
                                   horizontal: 4,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: provider.selectedIndex == index
-                                      ? Colors.lightBlue.shade100
-                                      : Colors.transparent,
+                                  color:
+                                      provider.selectedIndex == index
+                                          ? Colors.lightBlue.shade100
+                                          : Colors.transparent,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Row(
@@ -69,9 +85,10 @@ class HomePage extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: provider.selectedIndex == index
-                                            ? Colors.blue
-                                            : Colors.black,
+                                        color:
+                                            provider.selectedIndex == index
+                                                ? Colors.blue
+                                                : Colors.black,
                                       ),
                                     ),
                                     if (index == 1 && unreadNotifications > 0)
@@ -145,7 +162,9 @@ class HomePage extends StatelessWidget {
                         currentList.where((item) => item["isVisible"]).length,
                     itemBuilder: (context, index) {
                       final visibleItems =
-                          currentList.where((item) => item["isVisible"]).toList();
+                          currentList
+                              .where((item) => item["isVisible"])
+                              .toList();
                       final item = visibleItems[index];
 
                       return NotificationCard(

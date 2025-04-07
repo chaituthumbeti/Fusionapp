@@ -17,7 +17,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int _selectedIndex = 0;
   bool _isMenuOpen = false;
-
+  String _role= "Student";
   void _onItemTapped(int index) {
     if (index == 3) {
       _showLogoutDialog();
@@ -36,6 +36,12 @@ class _DashboardState extends State<Dashboard> {
   void _closeMenu() {
     setState(() {
       _isMenuOpen = false;
+    });
+  }
+
+  void _handleRoleChange(String role){
+    setState(() {
+      _role=role;
     });
   }
 
@@ -73,6 +79,7 @@ class _DashboardState extends State<Dashboard> {
       appBar: TopNavBar(
         selectedIndex: _selectedIndex,
         onMenuPressed: _openMenu,
+        roleChange: _handleRoleChange,
       ),
       body: Stack(
         children: [
@@ -84,7 +91,7 @@ class _DashboardState extends State<Dashboard> {
             left: _isMenuOpen ? 0 : -MediaQuery.of(context).size.width ,
             top: 0,
             bottom: 0,
-            child: MenuPage(onClose: _closeMenu),
+            child: MenuPage(onClose: _closeMenu,role:_role),
           ),
         ],
       ),
@@ -98,9 +105,9 @@ class _DashboardState extends State<Dashboard> {
 
   Widget _buildBody() {
     return [
-      const HomePage(),
-      ModulePage(),
-      const ProfilePage(),
+      HomePage(role:_role),
+      ModulePage(role:_role),
+      ProfilePage(role:_role),
     ][_selectedIndex];
   }
 }

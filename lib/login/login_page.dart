@@ -3,7 +3,7 @@ import '../dashboard.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-
+  
   void _popup(BuildContext context) {
     final TextEditingController emailController = TextEditingController();
 

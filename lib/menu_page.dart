@@ -2,18 +2,59 @@ import 'package:flutter/material.dart';
 
 class MenuPage extends StatelessWidget {
   final VoidCallback onClose;
+  final String role;
 
-  const MenuPage({super.key, required this.onClose});
+  const MenuPage({super.key, required this.onClose, required this.role});
 
   final List<Map<String, dynamic>> menuItems = const [
-    {"title": "Academics", "icon": Icons.school, "subItems": ["Courses", "Grades"]},
-    {"title": "Curriculum", "icon": Icons.book, "subItems": ["Subjects", "Electives"]},
-    {"title": "Mess", "icon": Icons.restaurant, "subItems": ["Menu", "Timings"]},
-    {"title": "Guest", "icon": Icons.person_add, "subItems": ["Request", "History"]},
-    {"title": "Health", "icon": Icons.local_hospital, "subItems": ["Appointments", "Reports"]},
-    {"title": "Scholarship", "icon": Icons.card_giftcard, "subItems": ["Apply", "Status"]},
-    {"title": "Complaint", "icon": Icons.report_problem, "subItems": ["New", "Track"]},
-    {"title": "Placement", "icon": Icons.work, "subItems": ["Opportunities", "Interviews"]},
+    {
+      "title": "Academics",
+      "icon": Icons.school,
+      "subItems": ["Courses", "Grades", "Manage Courses", "Student Grades"],
+      "roles": ["student", "faculty", "admin"]
+    },
+    {
+      "title": "Curriculum",
+      "icon": Icons.book,
+      "subItems": ["Subjects", "Electives", "Manage Subjects"],
+      "roles": ["faculty", "admin"]
+    },
+    {
+      "title": "Mess",
+      "icon": Icons.restaurant,
+      "subItems": ["Menu", "Timings", "Update Menu", "Schedule"],
+      "roles": ["student", "admin"]
+    },
+    {
+      "title": "Guest",
+      "icon": Icons.person_add,
+      "subItems": ["Request", "History", "Manage Requests", "Logs"],
+      "roles": ["faculty", "admin"]
+    },
+    {
+      "title": "Health",
+      "icon": Icons.local_hospital,
+      "subItems": ["Appointments", "Reports", "Health Records"],
+      "roles": ["student", "admin"]
+    },
+    {
+      "title": "Scholarship",
+      "icon": Icons.card_giftcard,
+      "subItems": ["Apply", "Status", "Applications"],
+      "roles": ["student", "admin"]
+    },
+    {
+      "title": "Complaint",
+      "icon": Icons.report_problem,
+      "subItems": ["New", "Track", "Manage", "Resolved", "All Complaints", "Analytics"],
+      "roles": ["student", "faculty", "admin"]
+    },
+    {
+      "title": "Placement",
+      "icon": Icons.work,
+      "subItems": ["Opportunities", "Interviews", "Manage Drives", "Results"],
+      "roles": ["student", "admin"]
+    },
   ];
 
   final List<Map<String, dynamic>> bottomItems = const [
@@ -24,8 +65,12 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final filteredMenuItems = menuItems
+        .where((item) => (item["roles"] as List<String>).contains(role.toLowerCase()))
+        .toList();
+
     return Container(
-      width: MediaQuery.of(context).size.width*0.75,
+      width: MediaQuery.of(context).size.width * 0.75,
       color: Colors.white,
       child: SafeArea(
         child: Column(
@@ -35,9 +80,9 @@ class MenuPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "MENU",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  Text(
+                    "MENU: $role",
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
                     icon: const Icon(Icons.close, size: 28),
@@ -46,9 +91,7 @@ class MenuPage extends StatelessWidget {
                 ],
               ),
             ),
-
             const SizedBox(height: 10),
-
             Expanded(
               child: ListView(
                 children: [
@@ -64,13 +107,11 @@ class MenuPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 5),
-
-                  ...menuItems.map((item) => _buildExpandableItem(
+                  ...filteredMenuItems.map((item) => _buildExpandableItem(
                         item["title"],
                         item["icon"],
                         item["subItems"],
                       )),
-
                   const Divider(thickness: 1.0, height: 32),
                   ...bottomItems.map((item) => _buildMenuItem(
                         item["title"],
